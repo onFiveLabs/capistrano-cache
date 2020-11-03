@@ -15,7 +15,9 @@ namespace :cache do
   task :clear do
     on roles(:app) do
       within current_path do
-        execute :bundle, 'exec rails runner "Rails.cache.clear"'
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, 'exec rails runner "Rails.cache.clear"'
+        end  
       end
     end
   end
